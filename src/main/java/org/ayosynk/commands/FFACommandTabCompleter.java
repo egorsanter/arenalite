@@ -42,7 +42,7 @@ public class FFACommandTabCompleter implements TabCompleter {
         switch (args[0].toLowerCase()) {
             case "join":
                 if (args.length == 2) {
-                    return plugin.getKitManager().getKitNames().stream()
+                    return plugin.getArenaManager().getArenaNames().stream()
                         .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
                         .collect(Collectors.toList());
                 }

@@ -124,24 +124,14 @@ public class FFACommand implements CommandExecutor {
         return true;
     }
     
-    private void handleJoin(Player player, String kitName) {
-        if (kitName == null) {
-            MessageUtils.sendMessage(player, "messages.kit-not-found", "%kit%", "");
-            return;
-        }
-        kitName = kitName.trim();
-        Kit kit = plugin.getKitManager().getKit(kitName);
-        if (kit == null) {
-            MessageUtils.sendMessage(player, "messages.kit-not-found", "%kit%", kitName);
-            return;
-        }
-        
-        String arenaName = kit.getLinkedArena();
+    private void handleJoin(Player player, String arenaName) {
         if (arenaName == null) {
-            MessageUtils.sendMessage(player, "messages.kit-no-arena");
+            MessageUtils.sendMessage(player, "messages.arena-not-found", "%arena%", "");
             return;
         }
-        
+
+        arenaName = arenaName.trim();
+
         Arena arena = plugin.getArenaManager().getArena(arenaName);
         if (arena == null) {
             MessageUtils.sendMessage(player, "messages.arena-not-found", "%arena%", arenaName);
@@ -159,17 +149,16 @@ public class FFACommand implements CommandExecutor {
         player.teleport(arena.getSpawn());
         
         if (plugin.getConfig().getBoolean("join-protection.clear-effects", true)) {
-            player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
+            player.getActivePotionEffects().forEach(effect ->
+                player.removePotionEffect(effect.getType())
+            );
             player.setFireTicks(0);
         }
-
-        // Clear inventory and give kit
-        plugin.getKitManager().applyKit(player, kit);
         
         // Update player data
         PlayerData data = plugin.getStatsManager().getPlayerData(player);
         data.setInArena(true);
-        data.setCurrentKit(kit.getName());
+        data.setCurrentKit(null);
         data.setCurrentArena(arena.getName());
         data.setJoinTime(System.currentTimeMillis());
         
@@ -179,7 +168,12 @@ public class FFACommand implements CommandExecutor {
 
         applyJoinProtection(player);
         
-        MessageUtils.sendMessage(player, "messages.joined-arena", "%arena%", arenaName, "%kit%", kit.getName());
+        MessageUtils.sendMessage(
+            player,
+            "messages.joined-arena",
+            "%arena%",
+            arena.getName()
+        );
     }
     
     private void handleLeave(Player player) {

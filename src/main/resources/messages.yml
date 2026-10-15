@@ -13,7 +13,7 @@ messages:
   kit-exists: "&#FF0000Kit &b%kit% &#FF0000already exists!"
   kit-no-arena: "&#FF0000This kit is not linked to an arena!"
   not-in-arena: "&#FF0000You are not in an arena!"
-  joined-arena: "&bYou joined arena &f%arena% &bwith kit &f%kit%&b!"
+  joined-arena: "&bYou joined arena &f%arena%&b!"
   left-arena: "&bYou left the arena!"
   kit-preview: "&bPreviewing kit: &f%kit%"
   spawn-not-set: "&#FF0000FFA spawn is not set! &7Use &b/ffa setspawn &7to configure it."
@@ -25,7 +25,7 @@ commands:
   ffa:
     help: |
       &b&l=== ArenaLite Commands ===
-      &b/ffa join &f<kit> &7- Join an arena with a kit
+      &b/ffa join &f<arena> &7- Join an FFA arena
       &b/ffa leave &7- Leave the current arena
       &b/ffa kit preview &f<kit> &7- Preview a kit
       &b/ffa kit create &f<kit> &7- Create a kit from inventory (admin)
@@ -33,7 +33,7 @@ commands:
       &b/ffa regen &f<arena> &7- Manually regen an arena
       &b/ffa reload &7- Reload the plugin
     join:
-      usage: "&#FF0000Usage: &b/ffa join &f<kit>"
+      usage: "&#FF0000Usage: &b/ffa join &f<arena>"
     leave:
       usage: "&#FF0000Usage: &b/ffa leave"
     kit:
